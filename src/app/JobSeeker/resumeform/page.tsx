@@ -1,11 +1,11 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useState, Suspense } from "react"
 import PersonalDetails from "@/components/personal-details-form"
 import { ResumePreview } from "@/components/resume-preview"
 
-export default function ResumeFormPage() {
+function ResumeFormContent() {
     const searchParams = useSearchParams()
     const templateId = searchParams.get("template")
 
@@ -32,5 +32,13 @@ export default function ResumeFormPage() {
                 </div>
             </main>
         </div>
+    )
+}
+
+export default function ResumeFormPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ResumeFormContent />
+        </Suspense>
     )
 }
